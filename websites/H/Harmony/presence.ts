@@ -1,7 +1,7 @@
 const presence = new Presence({
-	clientId: "882003722270572574",
-}),
- browsingTimestamp = Math.floor(Date.now() / 1000);
+		clientId: "882003722270572574",
+	}),
+	browsingTimestamp = Math.floor(Date.now() / 1000);
 
 let npTitle: string, npArtist: string, npOnAir: string, npListeners: number;
 
