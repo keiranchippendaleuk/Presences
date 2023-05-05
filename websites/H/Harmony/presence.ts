@@ -1,7 +1,7 @@
 const presence = new Presence({
-		clientId: "882003722270572574",
-	}),
-	browsingTimestamp = Math.floor(Date.now() / 1000);
+	clientId: "882003722270572574",
+}),
+ browsingTimestamp = Math.floor(Date.now() / 1000);
 
 let npTitle: string, npArtist: string, npOnAir: string, npListeners: number;
 
@@ -25,38 +25,26 @@ presence.on("UpdateData", async () => {
 		smallImageKey: "live",
 	};
 
-	if (document.location.hash.startsWith("#/")) {
+	if (document.location.hash.startsWith("app/")) {
 		presenceData.startTimestamp = browsingTimestamp;
 		presenceData.smallImageText = `Listeners: ${npListeners} | Live DJ: ${npOnAir}`;
-		if (document.location.hash === "#/Home") {
+		if (document.location.hash === "app/home") {
 			presenceData.details = `🎶 ➜ ${npTitle}`;
 			presenceData.state = `🎤 ➜ ${npArtist}`;
-		} else if (document.location.hash.startsWith("#/User")) {
+		} else if (document.location.hash.startsWith("app/profile")) {
 			presenceData.details = `📰 ➜ Viewing user: ${
 				document.querySelector(
-					"body > div.page-container > div > div.p-container > p"
+					"body > div.pageContainer > div.pageContent > div.metadata  > h1"
 				).textContent
 			}`;
 			presenceData.state = `💿 ➜ ${npOnAir}`;
-		} else if (document.location.hash.startsWith("#/Song")) {
+		} else if (document.location.hash.startsWith("app/track")) {
 			presenceData.details = `📰 ➜ Viewing song: ${
-				document.querySelector(".sp-title").textContent
+				document.querySelector("#song-title").textContent
 			}`;
 			presenceData.state = `🎤 ➜ ${
-				document.querySelector(".sp-artist").textContent
+				document.querySelector("#song-artist").textContent
 			}`;
-		} else if (document.location.hash.startsWith("#/Library")) {
-			presenceData.details = `📰 ➜ Viewing page: ${
-				(document.querySelector(".mlib") || document.querySelector(".olib"))
-					.textContent
-			}`;
-			presenceData.state = `💿 ➜ ${npOnAir}`;
-		} else if (document.location.hash.startsWith("#/Special.Blank")) {
-			presenceData.details = `📰 ➜ ${
-				document.querySelector("#navbar > ul.dropdown.ubox > div > h1")
-					.textContent
-			} got FUNKY TOWNED!`;
-			presenceData.state = `💿 ➜ ${npOnAir}`;
 		} else {
 			presenceData.details = `📰 ➜ Viewing page: ${
 				document.location.hash.slice(2).split("?")[0]
